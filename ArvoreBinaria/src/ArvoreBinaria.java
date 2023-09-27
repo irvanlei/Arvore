@@ -67,8 +67,9 @@ public class ArvoreBinaria {
             raiz.setDireita(removerRec(raiz.getDireita(), valor));
         } else {
             if (raiz.getEsquerda() != null && raiz.getDireita() != null) {
-                raiz.setValor(encontrarMaximo(raiz.getEsquerda()));
-                raiz.setEsquerda(removerRec(raiz.getEsquerda(), raiz.getValor()));
+                int minimoNaDireita = encontrarMinimo(raiz.getDireita());
+                raiz.setValor(minimoNaDireita);
+                raiz.setDireita(removerRec(raiz.getDireita(), minimoNaDireita));
             } else {
                 if (raiz.getEsquerda() != null) {
                     raiz = raiz.getEsquerda();
@@ -80,14 +81,12 @@ public class ArvoreBinaria {
 
         return raiz;
     }
-
-    private int encontrarMaximo(Node raiz) {
-        while (raiz.getDireita() != null) {
-            raiz = raiz.getDireita();
+    private int encontrarMinimo(Node raiz) {
+        while (raiz.getEsquerda() != null) {
+            raiz = raiz.getEsquerda();
         }
         return raiz.getValor();
     }
-
     public void imprimirArvore() {
         imprimirArvore(raiz, "");
     }
