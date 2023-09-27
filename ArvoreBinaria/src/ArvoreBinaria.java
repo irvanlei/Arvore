@@ -1,6 +1,7 @@
 public class ArvoreBinaria {
     private Node raiz;
-
+    private int valorRemovido;
+    private Node novoNoRaiz;
     public ArvoreBinaria() {
         raiz = null;
     }
@@ -47,6 +48,8 @@ public class ArvoreBinaria {
     public boolean remover(int valor) {
         if (buscar(valor)) {
             raiz = removerRec(raiz, valor);
+            valorRemovido = valor;
+            novoNoRaiz = raiz;
             return true;
         } else {
             return false;
@@ -95,5 +98,11 @@ public class ArvoreBinaria {
             System.out.println(prefixo + raiz.getValor());
             imprimirArvore(raiz.getEsquerda(), prefixo + "\t");
         }
+    }
+    public int getValorRemovido() {
+        return valorRemovido;
+    }
+    public Node getNovoNoRaiz() {
+        return novoNoRaiz;
     }
 }

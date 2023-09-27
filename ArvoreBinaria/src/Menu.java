@@ -59,7 +59,8 @@ public class Menu {
                         int valorRemover = scanner.nextInt();
                         boolean removido = abb.remover(valorRemover);
                         if (removido) {
-                            System.out.println("Valor removido.");
+                            System.out.println("Valor removido: " + abb.getValorRemovido());
+                            System.out.println("Novo nó raiz: " + abb.getNovoNoRaiz().getValor());
                         } else {
                             System.out.println("O valor não está na árvore.");
                         }
