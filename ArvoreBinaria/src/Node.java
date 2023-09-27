@@ -32,4 +32,15 @@ public class Node {
     public void setDireita(Node direita) {
         this.direita = direita;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Node other) {
+            return this.valor == other.valor;
+        }
+        return false;
+    }
+    @Override
+    public int hashCode() {
+        return valor;
+    }
 }
