@@ -15,10 +15,10 @@ public class ArvoreBinaria {
             return raiz;
         }
 
-        if (valor < raiz.getValor()) {
-            raiz.setEsquerda(inserirRec(raiz.getEsquerda(), valor));
-        } else if (valor > raiz.getValor()) {
+        if (valor >= raiz.getValor()) {
             raiz.setDireita(inserirRec(raiz.getDireita(), valor));
+        } else {
+            raiz.setEsquerda(inserirRec(raiz.getEsquerda(), valor));
         }
 
         return raiz;
@@ -53,7 +53,6 @@ public class ArvoreBinaria {
         }
     }
 
-
     private Node removerRec(Node raiz, int valor) {
         if (raiz == null) {
             return raiz;
@@ -64,27 +63,26 @@ public class ArvoreBinaria {
         } else if (valor > raiz.getValor()) {
             raiz.setDireita(removerRec(raiz.getDireita(), valor));
         } else {
-            if (raiz.getEsquerda() == null) {
-                return raiz.getDireita();
-            } else if (raiz.getDireita() == null) {
-                return raiz.getEsquerda();
+            if (raiz.getEsquerda() != null && raiz.getDireita() != null) {
+                raiz.setValor(encontrarMaximo(raiz.getEsquerda()));
+                raiz.setEsquerda(removerRec(raiz.getEsquerda(), raiz.getValor()));
+            } else {
+                if (raiz.getEsquerda() != null) {
+                    raiz = raiz.getEsquerda();
+                } else {
+                    raiz = raiz.getDireita();
+                }
             }
-
-            raiz.setValor(valorMinimo(raiz.getDireita()));
-
-            raiz.setDireita(removerRec(raiz.getDireita(), raiz.getValor()));
         }
 
         return raiz;
     }
 
-    private int valorMinimo(Node raiz) {
-        int valorMinimo = raiz.getValor();
-        while (raiz.getEsquerda() != null) {
-            valorMinimo = raiz.getEsquerda().getValor();
-            raiz = raiz.getEsquerda();
+    private int encontrarMaximo(Node raiz) {
+        while (raiz.getDireita() != null) {
+            raiz = raiz.getDireita();
         }
-        return valorMinimo;
+        return raiz.getValor();
     }
 
     public void imprimirArvore() {
@@ -99,10 +97,3 @@ public class ArvoreBinaria {
         }
     }
 }
-
-
-
-
-
-
-
